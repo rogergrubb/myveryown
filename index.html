@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Very Own — Your AI. Your Way.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   MY VERY OWN — Homepage
+   Animated storybook with full-bleed themes
+   ═══════════════════════════════════════ */
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+body {
+  font-family: 'Sora', sans-serif;
+  background: #08080c;
+  color: #f0ede8;
+  overflow-x: hidden;
+}
+
+/* ─── GLOBAL NAV ─────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 32px;
+  background: rgba(8,8,12,0.7);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: background 0.3s;
+}
+nav .logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700;
+  background: linear-gradient(135deg, #ffd700, #ff6b35);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+nav .cta-nav {
+  padding: 10px 24px; border-radius: 30px; border: none;
+  background: linear-gradient(135deg, #ffd700, #ff6b35);
+  color: #08080c; font-family: 'Sora'; font-size: 13px; font-weight: 700;
+  cursor: pointer; letter-spacing: 0.03em; transition: transform 0.2s, box-shadow 0.2s;
+}
+nav .cta-nav:hover { transform: scale(1.05); box-shadow: 0 4px 24px rgba(255,215,0,0.3); }
+
+/* ─── SECTIONS ───────────────────── */
+section {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  scroll-snap-align: start;
+}
+
+/* ─── HERO ────────────────────────── */
+#hero {
+  flex-direction: column; text-align: center;
+  background: radial-gradient(ellipse at 50% 30%, rgba(255,215,0,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 70%, rgba(255,107,53,0.04) 0%, transparent 50%),
+              #08080c;
+}
+#hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+.hero-content { position: relative; z-index: 2; padding: 0 24px; }
+.hero-badge {
+  display: inline-block; padding: 6px 16px; border-radius: 30px;
+  background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.15);
+  color: #ffd700; font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 32px;
+  animation: fadeUp 0.8s ease both;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(42px, 8vw, 88px); font-weight: 700;
+  line-height: 1.05; margin-bottom: 24px;
+  animation: fadeUp 0.8s ease 0.15s both;
+}
+.hero-title em {
+  font-style: italic;
+  background: linear-gradient(135deg, #ffd700, #ff6b35, #ff3366);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  font-size: clamp(16px, 2.5vw, 22px); color: rgba(240,237,232,0.55);
+  line-height: 1.7; max-width: 600px; margin: 0 auto 40px;
+  font-weight: 300; animation: fadeUp 0.8s ease 0.3s both;
+}
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 40px; border-radius: 40px; border: none;
+  background: linear-gradient(135deg, #ffd700, #ff6b35);
+  color: #08080c; font-family: 'Sora'; font-size: 16px; font-weight: 700;
+  cursor: pointer; letter-spacing: 0.02em;
+  transition: transform 0.2s, box-shadow 0.3s;
+  animation: fadeUp 0.8s ease 0.45s both;
+}
+.hero-cta:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 8px 40px rgba(255,215,0,0.25); }
+.hero-scroll {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,0.2); font-size: 12px; letter-spacing: 0.1em;
+  text-transform: uppercase; animation: bobble 2s ease infinite;
+}
+@keyframes bobble { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:none} }
+
+/* ─── STORY SECTIONS ──────────────── */
+.story {
+  flex-direction: column; text-align: center; padding: 80px 24px;
+}
+.story-num {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: rgba(255,215,0,0.4); margin-bottom: 16px;
+}
+.story h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 52px); font-weight: 700;
+  line-height: 1.15; margin-bottom: 20px; max-width: 700px;
+}
+.story p {
+  font-size: clamp(15px, 2vw, 18px); color: rgba(240,237,232,0.5);
+  line-height: 1.7; max-width: 560px; font-weight: 300;
+}
+
+/* ─── THEME SHOWCASE (full-bleed) ── */
+.theme-showcase {
+  min-height: 100vh; position: relative;
+  display: flex; flex-direction: column;
+  scroll-snap-align: start;
+}
+.theme-bg {
+  position: absolute; inset: 0; z-index: 0;
+  transition: opacity 1.2s ease;
+}
+.theme-content {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  height: 100vh; padding: 40px 24px; text-align: center;
+}
+.theme-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; margin-bottom: 12px; opacity: 0.6;
+}
+.theme-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 7vw, 72px); font-weight: 700;
+  margin-bottom: 16px;
+}
+.theme-desc {
+  font-size: 18px; max-width: 500px; line-height: 1.6;
+  font-weight: 300; opacity: 0.7; margin-bottom: 32px;
+}
+.theme-chat-preview {
+  width: min(90vw, 420px);
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px; padding: 20px;
+  text-align: left;
+}
+.preview-msg {
+  padding: 10px 14px; border-radius: 14px; margin-bottom: 8px;
+  font-size: 13px; line-height: 1.5; max-width: 85%;
+}
+.preview-msg.user {
+  margin-left: auto; text-align: right;
+  border-bottom-right-radius: 4px;
+}
+.preview-msg.ai {
+  border-bottom-left-radius: 4px;
+}
+
+/* Individual theme styles */
+.theme-jungle .theme-bg {
+  background: linear-gradient(170deg, #0a2a0a 0%, #143814 30%, #0d2b0d 60%, #061a06 100%);
+}
+.theme-jungle .theme-bg::before {
+  content: '🌿🦜🌺🍃🌴🦋🌿🍃🌺🦜🌴🦋🌿🍃';
+  position: absolute; inset: 0; font-size: 60px; opacity: 0.06;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 40px; letter-spacing: 20px; line-height: 2;
+  animation: floatEmoji 20s linear infinite;
+}
+.theme-jungle .theme-name { color: #5daa3f; }
+.theme-jungle .preview-msg.user { background: linear-gradient(135deg, #3d8c28, #5daa3f); color: #fff; }
+.theme-jungle .preview-msg.ai { background: rgba(93,170,63,0.12); color: #c8e8b8; }
+
+.theme-desert .theme-bg {
+  background: linear-gradient(170deg, #2a1c0a 0%, #3d2810 30%, #1a1208 60%, #0f0a04 100%);
+}
+.theme-desert .theme-bg::before {
+  content: '🏜️🌵☀️🦂🐪🏜️🌵☀️🦂🐪';
+  position: absolute; inset: 0; font-size: 60px; opacity: 0.06;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 40px; animation: floatEmoji 25s linear infinite;
+}
+.theme-desert .theme-name { color: #e8a040; }
+.theme-desert .preview-msg.user { background: linear-gradient(135deg, #c07020, #e8a040); color: #fff; }
+.theme-desert .preview-msg.ai { background: rgba(232,160,64,0.1); color: #f0d8b0; }
+
+.theme-cyber .theme-bg {
+  background: linear-gradient(170deg, #0a0416 0%, #0f0824 30%, #06021a 60%, #020010 100%);
+}
+.theme-cyber .theme-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.015) 2px, rgba(0,255,255,0.015) 4px);
+  animation: scanlines 8s linear infinite;
+}
+.theme-cyber .theme-name {
+  color: #00ffcc;
+  text-shadow: 0 0 30px rgba(0,255,204,0.3), 0 0 60px rgba(0,255,204,0.1);
+}
+.theme-cyber .preview-msg.user { background: linear-gradient(135deg, #0088aa, #00ccbb); color: #001a1a; }
+.theme-cyber .preview-msg.ai { background: rgba(0,255,204,0.06); color: #80ffe6; border: 1px solid rgba(0,255,204,0.1); }
+
+.theme-cozy .theme-bg {
+  background: linear-gradient(170deg, #1a1210 0%, #2a1c14 30%, #1a1410 60%, #100c08 100%);
+}
+.theme-cozy .theme-bg::before {
+  content: '🕯️✨🧸📖☕🔥🕯️✨🧸📖☕🔥';
+  position: absolute; inset: 0; font-size: 50px; opacity: 0.05;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 40px; animation: floatEmoji 30s linear infinite;
+}
+.theme-cozy .theme-name { color: #e8a070; }
+.theme-cozy .preview-msg.user { background: linear-gradient(135deg, #a06030, #d08050); color: #fff; }
+.theme-cozy .preview-msg.ai { background: rgba(232,160,112,0.08); color: #f0d8c0; }
+
+.theme-steam .theme-bg {
+  background: linear-gradient(170deg, #1a1008 0%, #2a1a0c 30%, #1a1208 60%, #0c0804 100%);
+}
+.theme-steam .theme-bg::before {
+  content: '⚙️🔩💨🕰️⚡🔧⚙️🔩💨🕰️⚡🔧';
+  position: absolute; inset: 0; font-size: 55px; opacity: 0.05;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 35px; animation: floatEmoji 22s linear infinite reverse;
+}
+.theme-steam .theme-name {
+  color: #c8944a;
+  text-shadow: 0 0 20px rgba(200,148,74,0.2);
+}
+.theme-steam .preview-msg.user { background: linear-gradient(135deg, #8a6020, #c8944a); color: #fff; }
+.theme-steam .preview-msg.ai { background: rgba(200,148,74,0.08); color: #e8d0a8; border: 1px solid rgba(200,148,74,0.1); }
+
+.theme-ocean .theme-bg {
+  background: linear-gradient(170deg, #041828 0%, #062840 30%, #031420 60%, #010810 100%);
+}
+.theme-ocean .theme-bg::before {
+  content: '🐋🌊🐚🐠🦈🪸🐋🌊🐚🐠🦈🪸';
+  position: absolute; inset: 0; font-size: 55px; opacity: 0.05;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 40px; animation: floatEmoji 28s linear infinite;
+}
+.theme-ocean .theme-name { color: #40a8e0; }
+.theme-ocean .preview-msg.user { background: linear-gradient(135deg, #2070a8, #40a8e0); color: #fff; }
+.theme-ocean .preview-msg.ai { background: rgba(64,168,224,0.08); color: #a0d8f0; }
+
+@keyframes floatEmoji {
+  0% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-15px) translateX(10px); }
+  50% { transform: translateY(-5px) translateX(-8px); }
+  75% { transform: translateY(-20px) translateX(5px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+@keyframes scanlines {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* ─── PERSONALITY PICKER ──────────── */
+#personalities {
+  background: radial-gradient(ellipse at 50% 50%, rgba(255,215,0,0.03) 0%, transparent 60%), #08080c;
+  padding: 100px 24px; flex-direction: column;
+}
+#personalities h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 48px); text-align: center; margin-bottom: 16px;
+}
+#personalities > p {
+  color: rgba(240,237,232,0.45); text-align: center;
+  font-size: 16px; margin-bottom: 48px; max-width: 500px;
+}
+.personality-grid {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center; max-width: 900px;
+}
+.personality-chip {
+  padding: 10px 20px; border-radius: 30px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  color: rgba(240,237,232,0.7);
+  font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: all 0.25s;
+  white-space: nowrap;
+}
+.personality-chip:hover {
+  background: rgba(255,215,0,0.1);
+  border-color: rgba(255,215,0,0.3);
+  color: #ffd700;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(255,215,0,0.1);
+}
+.personality-chip .emoji { margin-right: 6px; }
+
+/* ─── PRICING ─────────────────────── */
+#pricing {
+  background: #08080c; padding: 100px 24px; flex-direction: column;
+}
+#pricing h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 48px); text-align: center; margin-bottom: 48px;
+}
+.price-cards {
+  display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+}
+.price-card {
+  width: 280px; padding: 32px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  text-align: center; transition: all 0.3s;
+}
+.price-card:hover { border-color: rgba(255,215,0,0.2); transform: translateY(-4px); }
+.price-card.featured {
+  border-color: rgba(255,215,0,0.3);
+  background: rgba(255,215,0,0.04);
+  box-shadow: 0 8px 40px rgba(255,215,0,0.08);
+}
+.price-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.price-card .price {
+  font-size: 42px; font-weight: 800; margin-bottom: 4px;
+}
+.price-card .price span { font-size: 16px; font-weight: 400; color: rgba(240,237,232,0.4); }
+.price-card .sub { font-size: 13px; color: rgba(240,237,232,0.35); margin-bottom: 20px; }
+.price-card ul { list-style: none; text-align: left; margin-bottom: 24px; }
+.price-card li {
+  padding: 6px 0; font-size: 13px; color: rgba(240,237,232,0.6);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.price-card li::before { content: '✓ '; color: #ffd700; font-weight: 700; }
+.price-card button {
+  width: 100%; padding: 12px; border-radius: 30px; border: none;
+  font-family: 'Sora'; font-size: 14px; font-weight: 700; cursor: pointer;
+  transition: all 0.2s;
+}
+.price-card button { background: rgba(255,255,255,0.08); color: #f0ede8; }
+.price-card button:hover { background: rgba(255,255,255,0.15); }
+.price-card.featured button {
+  background: linear-gradient(135deg, #ffd700, #ff6b35);
+  color: #08080c;
+}
+.price-card.featured button:hover { transform: scale(1.03); box-shadow: 0 4px 20px rgba(255,215,0,0.2); }
+
+/* ─── FOOTER ──────────────────────── */
+footer {
+  text-align: center; padding: 60px 24px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  color: rgba(240,237,232,0.2); font-size: 13px;
+}
+footer a { color: rgba(240,237,232,0.3); text-decoration: none; }
+footer a:hover { color: #ffd700; }
+
+/* ─── SCROLL ANIMATIONS ──────────── */
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1; transform: none;
+}
+
+/* ─── MOBILE ──────────────────────── */
+@media (max-width: 600px) {
+  nav { padding: 12px 16px; }
+  .price-cards { flex-direction: column; align-items: center; }
+  .theme-chat-preview { width: 92vw; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">my very own</div>
+  <button class="cta-nav" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Start Free</button>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">100+ Themes · 50+ Personalities · Any AI Model</div>
+    <h1 class="hero-title">Your <em>very own</em> AI.</h1>
+    <p class="hero-sub">Pick a vibe. Pick a personality. Pick a brain. Start talking to an AI that looks, sounds, and remembers exactly the way you want. $4.99/mo.</p>
+    <button class="hero-cta" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'})">See how it works ↓</button>
+  </div>
+  <div class="hero-scroll">scroll to explore</div>
+</section>
+
+<!-- ═══ STORY 1 ═══ -->
+<section class="story" id="s1">
+  <div class="reveal">
+    <div class="story-num">Step One</div>
+    <h2>Pick your world</h2>
+    <p>Every theme is a full-screen, edge-to-edge visual experience. Not a background color — a world. Scroll down and see for yourself.</p>
+  </div>
+</section>
+
+<!-- ═══ THEME: JUNGLE ═══ -->
+<section class="theme-showcase theme-jungle">
+  <div class="theme-bg"></div>
+  <div class="theme-content reveal">
+    <div class="theme-label">Theme Preview</div>
+    <div class="theme-name">🌿 Deep Jungle</div>
+    <div class="theme-desc">For nature lovers, survivalists, and adventurers who want their AI to feel like base camp.</div>
+    <div class="theme-chat-preview">
+      <div class="preview-msg user">What's the best water purification method if I'm hiking with minimal gear?</div>
+      <div class="preview-msg ai">Boiling is the gold standard — kills 99.9% of pathogens. But if you can't make fire, a Sawyer Squeeze filter weighs 3oz and handles 100K gallons. You mentioned last trip you carried iodine tablets as backup — smart combo. Want me to update your gear list?</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THEME: CYBERPUNK ═══ -->
+<section class="theme-showcase theme-cyber">
+  <div class="theme-bg"></div>
+  <div class="theme-content reveal">
+    <div class="theme-label">Theme Preview</div>
+    <div class="theme-name">⚡ Neon Circuit</div>
+    <div class="theme-desc">For hackers, devs, and tech obsessives. Scanlines. Glow. No mercy on bad code.</div>
+    <div class="theme-chat-preview">
+      <div class="preview-msg user">My React app re-renders 47 times on page load</div>
+      <div class="preview-msg ai">Classic. You're probably passing a new object reference as a prop inside a map. Wrap the child component in React.memo and memoize the prop with useMemo. You hit this same pattern in the dashboard project three weeks ago — remember the fix?</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ═══ -->
+<section class="story">
+  <div class="reveal">
+    <div class="story-num">Step Two</div>
+    <h2>Pick your personality</h2>
+    <p>Same question, wildly different answer. Your AI's attitude is entirely up to you. Switch anytime.</p>
+  </div>
+</section>
+
+<!-- ═══ THEME: COZY ═══ -->
+<section class="theme-showcase theme-cozy">
+  <div class="theme-bg"></div>
+  <div class="theme-content reveal">
+    <div class="theme-label">Theme Preview</div>
+    <div class="theme-name">🕯️ Hearth</div>
+    <div class="theme-desc">For thinkers, journalers, and anyone who needs a warm place to talk things through.</div>
+    <div class="theme-chat-preview">
+      <div class="preview-msg user">I keep starting projects and never finishing them</div>
+      <div class="preview-msg ai">That's a pattern we've talked about before — and honestly? The fact that you notice it means you're already halfway there. Last month you said the podcast idea felt different. It still does, doesn't it? What if we figured out the smallest possible first episode instead of the whole series?</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THEME: STEAMPUNK ═══ -->
+<section class="theme-showcase theme-steam">
+  <div class="theme-bg"></div>
+  <div class="theme-content reveal">
+    <div class="theme-label">Theme Preview</div>
+    <div class="theme-name">⚙️ Brass & Steam</div>
+    <div class="theme-desc">For the mechanically minded, the curious tinkerers, and anyone who appreciates a good gear ratio.</div>
+    <div class="theme-chat-preview">
+      <div class="preview-msg user">Explain blockchain like I'm a Victorian inventor</div>
+      <div class="preview-msg ai">Imagine a ledger — but instead of one clerk maintaining it, every merchant in London has an identical copy. When a transaction occurs, every copy updates simultaneously via pneumatic tube. No single clerk can forge an entry because all others would reject the discrepancy. That, good sir, is the distributed ledger.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THEME: DESERT ═══ -->
+<section class="theme-showcase theme-desert">
+  <div class="theme-bg"></div>
+  <div class="theme-content reveal">
+    <div class="theme-label">Theme Preview</div>
+    <div class="theme-name">🏜️ Dune Runner</div>
+    <div class="theme-desc">Minimal. Focused. For the stoic, the disciplined, the ones who cut through noise.</div>
+    <div class="theme-chat-preview">
+      <div class="preview-msg user">Give it to me straight — should I quit my job?</div>
+      <div class="preview-msg ai">You've mentioned hating Mondays four times this month. Your side project revenue hit $2,800 last week. Your burn rate is $3,100. You're $300 short of freedom. That's not a gap — that's a weekend of focused work. The question isn't whether. It's when.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THEME: OCEAN ═══ -->
+<section class="theme-showcase theme-ocean">
+  <div class="theme-bg"></div>
+  <div class="theme-content reveal">
+    <div class="theme-label">Theme Preview</div>
+    <div class="theme-name">🌊 Deep Blue</div>
+    <div class="theme-desc">Calm, expansive, reflective. For dreamers, writers, and late-night thinkers.</div>
+    <div class="theme-chat-preview">
+      <div class="preview-msg user">I can't sleep. Tell me something beautiful.</div>
+      <div class="preview-msg ai">Right now, somewhere in the Pacific, a whale is singing a song that no other whale in its species sings quite the same way. Scientists have tracked one — they call it the 52-hertz whale — that sings at a frequency no other whale can hear. It's been singing alone for decades. And it hasn't stopped.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ═══ -->
+<section class="story">
+  <div class="reveal">
+    <div class="story-num">Step Three</div>
+    <h2>Pick your attitude</h2>
+    <p>Same AI. Completely different personality. Drill sergeant or people pleaser. Jewish mother or stoner philosopher. Your call.</p>
+  </div>
+</section>
+
+<!-- ═══ PERSONALITY PICKER ═══ -->
+<section id="personalities">
+  <h2 class="reveal">50+ Personalities</h2>
+  <p class="reveal">Mix any personality with any theme. Switch anytime.</p>
+  <div class="personality-grid reveal">
+    <div class="personality-chip"><span class="emoji">🫡</span>Drill Sergeant</div>
+    <div class="personality-chip"><span class="emoji">🥺</span>People Pleaser</div>
+    <div class="personality-chip"><span class="emoji">🫶</span>Jewish Mother</div>
+    <div class="personality-chip"><span class="emoji">🌿</span>Stoner Philosopher</div>
+    <div class="personality-chip"><span class="emoji">🤠</span>Southern Grandma</div>
+    <div class="personality-chip"><span class="emoji">🎩</span>British Butler</div>
+    <div class="personality-chip"><span class="emoji">🏄</span>Surfer Bro</div>
+    <div class="personality-chip"><span class="emoji">📏</span>Strict Professor</div>
+    <div class="personality-chip"><span class="emoji">🔥</span>Hype Man</div>
+    <div class="personality-chip"><span class="emoji">😏</span>Sarcastic BFF</div>
+    <div class="personality-chip"><span class="emoji">🧘</span>Zen Monk</div>
+    <div class="personality-chip"><span class="emoji">🤬</span>Gordon Ramsay Energy</div>
+    <div class="personality-chip"><span class="emoji">🗽</span>Street-Smart New Yorker</div>
+    <div class="personality-chip"><span class="emoji">🤓</span>Overly Enthusiastic Intern</div>
+    <div class="personality-chip"><span class="emoji">🏴‍☠️</span>Pirate Captain</div>
+    <div class="personality-chip"><span class="emoji">👨‍🔬</span>Mad Scientist</div>
+    <div class="personality-chip"><span class="emoji">🧙</span>Fantasy Wizard</div>
+    <div class="personality-chip"><span class="emoji">🕵️</span>Film Noir Detective</div>
+    <div class="personality-chip"><span class="emoji">💀</span>Goth Poet</div>
+    <div class="personality-chip"><span class="emoji">🤖</span>Robot Overlord</div>
+    <div class="personality-chip"><span class="emoji">🌸</span>Anime Protagonist</div>
+    <div class="personality-chip"><span class="emoji">🧑‍🍳</span>Italian Nonna</div>
+    <div class="personality-chip"><span class="emoji">🎙️</span>Podcast Host</div>
+    <div class="personality-chip"><span class="emoji">📊</span>Cold Analyst</div>
+    <div class="personality-chip"><span class="emoji">💪</span>Gym Bro</div>
+    <div class="personality-chip"><span class="emoji">🌈</span>Kindergarten Teacher</div>
+    <div class="personality-chip"><span class="emoji">🎭</span>Shakespeare</div>
+    <div class="personality-chip"><span class="emoji">🦊</span>Trickster</div>
+    <div class="personality-chip"><span class="emoji">👑</span>Royal Advisor</div>
+    <div class="personality-chip"><span class="emoji">🛸</span>Alien Anthropologist</div>
+    <div class="personality-chip"><span class="emoji">🔮</span>Fortune Teller</div>
+    <div class="personality-chip"><span class="emoji">📚</span>Librarian</div>
+    <div class="personality-chip"><span class="emoji">🎸</span>Rock Star</div>
+    <div class="personality-chip"><span class="emoji">🧃</span>Gen Z Bestie</div>
+    <div class="personality-chip"><span class="emoji">👴</span>Grumpy Grandpa</div>
+    <div class="personality-chip"><span class="emoji">🚀</span>Startup Bro</div>
+    <div class="personality-chip"><span class="emoji">🌻</span>Wholesome Mom</div>
+    <div class="personality-chip"><span class="emoji">🎯</span>Executive Coach</div>
+    <div class="personality-chip"><span class="emoji">🐉</span>Dungeon Master</div>
+    <div class="personality-chip"><span class="emoji">🔞</span>Spicy (18+ only)</div>
+    <div class="personality-chip"><span class="emoji">👶</span>Kid-Safe Mode</div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ═══ -->
+<section class="story">
+  <div class="reveal">
+    <div class="story-num">Step Four</div>
+    <h2>Pick your brain</h2>
+    <p>Choose any AI model. ChatGPT, Claude, Gemini, DeepSeek, Grok — or let us pick the smartest one for the price. Built-in cost tracker shows every penny in real time.</p>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section id="pricing">
+  <h2 class="reveal">Simple. Cheap. Yours.</h2>
+  <div class="price-cards reveal">
+    <div class="price-card">
+      <h3>Casual</h3>
+      <div class="price">$4.99<span>/mo</span></div>
+      <div class="sub">Smart AI that remembers you</div>
+      <ul>
+        <li>All 100+ themes</li>
+        <li>All 50+ personalities</li>
+        <li>AI that remembers you forever</li>
+        <li>Built-in cost tracker</li>
+        <li>DeepSeek + Gemini Flash</li>
+      </ul>
+      <button>Start Free Trial</button>
+    </div>
+    <div class="price-card featured">
+      <h3>Standard</h3>
+      <div class="price" style="color:#ffd700">$14.99<span>/mo</span></div>
+      <div class="sub">Smarter AI, same great price</div>
+      <ul>
+        <li>Everything in Casual</li>
+        <li>Claude Haiku + Sonnet</li>
+        <li>GPT-5 + Gemini Pro</li>
+        <li>Switch models anytime</li>
+        <li>Priority support</li>
+      </ul>
+      <button>Start Free Trial</button>
+    </div>
+    <div class="price-card">
+      <h3>Premium</h3>
+      <div class="price">$29.99<span>/mo</span></div>
+      <div class="sub">The best AI brains, unlimited</div>
+      <ul>
+        <li>Everything in Standard</li>
+        <li>Claude Opus + GPT-5 Pro</li>
+        <li>Grok 3 + Gemini Ultra</li>
+        <li>Maximum intelligence</li>
+        <li>Early access to new features</li>
+      </ul>
+      <button>Start Free Trial</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <p style="font-family:'Playfair Display',serif; font-size:20px; color:rgba(240,237,232,0.15); margin-bottom:12px;">my very own</p>
+  <p>Built by <a href="https://numberonesonsoftware.com">Number One Son Software Development</a></p>
+  <p style="margin-top:8px;">
+    <a href="#">Terms</a> · <a href="#">Privacy</a> · <a href="#">Contact</a>
+  </p>
+</footer>
+
+<!-- ═══ SCROLL REVEAL ═══ -->
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Personality chip interaction
+document.querySelectorAll('.personality-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.personality-chip').forEach(c => c.style.borderColor = '');
+    chip.style.borderColor = 'rgba(255,215,0,0.6)';
+    chip.style.background = 'rgba(255,215,0,0.15)';
+    chip.style.color = '#ffd700';
+  });
+});
+</script>
+
+</body>
+</html>
