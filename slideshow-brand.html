@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Very Own — 20 Products. One Platform.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Sora:wght@300;400;600;700;800&family=Caveat:wght@700&family=Space+Mono:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Bebas+Neue&family=DM+Serif+Display&family=Poppins:wght@400;600;700;800&family=Rubik+Mono+One&family=Permanent+Marker&family=UnifrakturCook:wght@700&family=Pirata+One&family=Dancing+Script:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { overflow-x: hidden; }
+body {
+  font-family: 'Sora', sans-serif;
+  background: #08080c;
+  color: #f0ede8;
+}
+
+/* ═══════════════════════════════════════
+   HERO — 20-PRODUCT SLIDESHOW
+   ═══════════════════════════════════════ */
+#hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+  pointer-events: none;
+}
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Slide inner layers */
+.slide-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(8,8,12,0.6) 100%);
+}
+.slide-emojis {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  gap: 40px;
+  padding: 40px;
+  pointer-events: none;
+}
+.slide-emojis span {
+  font-size: 80px;
+  opacity: 0.05;
+  animation: floatSlow 20s ease-in-out infinite;
+}
+.slide-emojis span:nth-child(odd) { animation-delay: 3s; }
+.slide-emojis span:nth-child(3n) { animation-delay: 6s; }
+@keyframes floatSlow {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(20px, -30px) rotate(8deg); }
+  66% { transform: translate(-15px, -15px) rotate(-5deg); }
+}
+
+/* Slide content layout */
+.slide-content {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  height: 100%;
+  padding: 0 clamp(24px, 6vw, 80px);
+  gap: 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Left side — branding */
+.slide-brand {
+  animation: slideInLeft 1.2s cubic-bezier(0.22,1,0.36,1) both;
+}
+.slide.active .slide-brand { animation-play-state: running; }
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: none; }
+}
+
+.slide-rank {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.15);
+  margin-bottom: 20px;
+  color: rgba(255,255,255,0.9);
+}
+
+.slide-emoji {
+  font-size: 88px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 8px 40px rgba(0,0,0,0.4));
+  animation: emojiPop 1.5s cubic-bezier(0.22,1,0.36,1) both;
+  animation-delay: 0.2s;
+}
+@keyframes emojiPop {
+  from { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+  60% { transform: scale(1.1) rotate(5deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+.slide-brand-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+.slide-domain {
+  font-size: 12px;
+  font-family: 'Space Mono', monospace;
+  opacity: 0.5;
+  margin-bottom: 28px;
+}
+.slide-name {
+  font-size: clamp(48px, 7vw, 84px);
+  line-height: 1;
+  margin-bottom: 20px;
+  animation: fadeUp 1.2s ease 0.3s both;
+}
+.slide-tagline {
+  font-size: clamp(16px, 1.8vw, 20px);
+  line-height: 1.6;
+  opacity: 0.75;
+  max-width: 480px;
+  margin-bottom: 32px;
+  font-weight: 300;
+  animation: fadeUp 1.2s ease 0.45s both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+
+.slide-price-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  animation: fadeUp 1.2s ease 0.6s both;
+}
+.slide-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+}
+.slide-price span { font-size: 14px; opacity: 0.5; font-weight: 400; }
+.slide-tag {
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  opacity: 0.8;
+}
+
+.slide-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: 40px;
+  border: none;
+  font-family: 'Sora';
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  animation: fadeUp 1.2s ease 0.75s both;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+.slide-cta:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* Right side — chat preview */
+.slide-preview {
+  width: 100%;
+  max-width: 460px;
+  padding: 24px;
+  border-radius: 24px;
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255,255,255,0.1);
+  animation: slideInRight 1.2s cubic-bezier(0.22,1,0.36,1) 0.3s both;
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: none; }
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.preview-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  background: rgba(255,255,255,0.1);
+}
+.preview-name {
+  font-size: 14px;
+  font-weight: 700;
+}
+.preview-status {
+  font-size: 10px;
+  opacity: 0.5;
+  margin-left: auto;
+}
+
+.preview-bubble {
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  max-width: 90%;
+  animation: msgIn 0.6s ease both;
+}
+.preview-bubble.user {
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+  animation-delay: 0.8s;
+}
+.preview-bubble.ai {
+  border-bottom-left-radius: 4px;
+  animation-delay: 1.2s;
+}
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ═══════════════════════════════════════
+   NAV BAR
+   ═══════════════════════════════════════ */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:1000;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 32px;
+  background:rgba(8,8,12,0.5);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+nav .logo {
+  font-family:'Playfair Display',serif;
+  font-size:22px; font-weight:700;
+  background:linear-gradient(135deg,#ffd700,#ff6b35);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+}
+nav .cta-nav {
+  padding:10px 24px; border-radius:30px; border:none;
+  background:linear-gradient(135deg,#ffd700,#ff6b35);
+  color:#08080c; font-family:'Sora'; font-size:13px; font-weight:700;
+  cursor:pointer; transition:transform 0.2s;
+}
+nav .cta-nav:hover { transform: scale(1.05); }
+
+/* ═══════════════════════════════════════
+   SLIDESHOW PROGRESS BAR
+   ═══════════════════════════════════════ */
+.progress-bar {
+  position: fixed;
+  top: 64px;
+  left: 0; right: 0;
+  height: 2px;
+  z-index: 100;
+  background: rgba(255,255,255,0.06);
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffd700, #ff6b35);
+  width: 0%;
+  transition: width 0.3s linear;
+}
+
+/* Slide counter */
+.slide-counter {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 24px;
+  background: rgba(8,8,12,0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 40px;
+}
+.slide-counter-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  min-width: 70px;
+  text-align: center;
+}
+.slide-counter-num .current {
+  background: linear-gradient(135deg, #ffd700, #ff6b35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 18px;
+}
+.slide-counter-dots {
+  display: flex;
+  gap: 4px;
+}
+.counter-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transition: all 0.4s;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+.counter-dot.active {
+  background: #ffd700;
+  width: 16px;
+  border-radius: 3px;
+}
+.counter-dot.passed {
+  background: rgba(255,215,0,0.4);
+}
+
+/* Pause button */
+.pause-btn {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.8);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  transition: all 0.2s;
+}
+.pause-btn:hover { background: rgba(255,215,0,0.15); border-color: rgba(255,215,0,0.4); }
+
+/* ═══════════════════════════════════════
+   INDIVIDUAL SLIDE THEMES
+   ═══════════════════════════════════════ */
+
+/* 1. SPICY */
+.s-spicy .slide-bg {
+  background: linear-gradient(160deg, #1a0010 0%, #3d0020 40%, #1a0010 100%);
+}
+.s-spicy .slide-overlay {
+  background: radial-gradient(ellipse at 30% 70%, rgba(255,0,80,0.3) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(8,0,10,0.6) 100%);
+}
+.s-spicy { color: #ffd6e0; }
+.s-spicy .slide-name { font-family: 'DM Serif Display', serif; color: #fff; }
+.s-spicy .slide-brand-label { color: #ff6688; }
+.s-spicy .slide-price, .s-spicy .slide-tag { color: #ff6688; }
+.s-spicy .slide-cta { background: linear-gradient(135deg, #e91e63, #ff4081); color: #fff; }
+.s-spicy .slide-preview { background: rgba(60,0,20,0.4); }
+.s-spicy .preview-bubble.user { background: linear-gradient(135deg, #e91e63, #ff4081); color: #fff; }
+.s-spicy .preview-bubble.ai { background: rgba(255,20,80,0.1); border: 1px solid rgba(255,20,80,0.15); color: #ffd6e0; }
+
+/* 2. THERAPY */
+.s-therapy .slide-bg {
+  background: linear-gradient(170deg, #1a1c28 0%, #252938 40%, #1a1c28 100%);
+}
+.s-therapy .slide-overlay {
+  background: radial-gradient(ellipse at 50% 30%, rgba(255,180,120,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(10,12,20,0.5) 100%);
+}
+.s-therapy { color: #f5e8d8; }
+.s-therapy .slide-name { font-family: 'Cormorant Garamond', serif; font-weight: 600; color: #fff; font-style: italic; }
+.s-therapy .slide-brand-label { color: #e8b484; }
+.s-therapy .slide-price, .s-therapy .slide-tag { color: #e8b484; }
+.s-therapy .slide-cta { background: linear-gradient(135deg, #7a6858, #a08870); color: #fff; }
+.s-therapy .slide-preview { background: rgba(30,32,50,0.5); }
+.s-therapy .preview-bubble.user { background: linear-gradient(135deg, #7a6858, #a08870); color: #fff; }
+.s-therapy .preview-bubble.ai { background: rgba(232,180,132,0.08); border: 1px solid rgba(232,180,132,0.12); color: #f5e8d8; }
+
+/* 3. K-POP */
+.s-kpop .slide-bg {
+  background: linear-gradient(135deg, #e8b4f8 0%, #b4d8f8 20%, #f8b4e8 45%, #b4f8e8 70%, #f0c0ff 100%);
+  background-size: 200% 200%;
+  animation: holoShift 8s ease infinite;
+}
+@keyframes holoShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.s-kpop .slide-overlay {
+  background: radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(139,95,192,0.2) 100%);
+}
+.s-kpop { color: #4a1a6a; }
+.s-kpop .slide-name { font-family: 'Quicksand', sans-serif; color: #3a1050; font-weight: 700; }
+.s-kpop .slide-brand-label { color: #8b5fc0; }
+.s-kpop .slide-price, .s-kpop .slide-tag { color: #8b5fc0; }
+.s-kpop .slide-cta { background: linear-gradient(135deg, #a855f7, #7c3aed); color: #fff; }
+.s-kpop .slide-preview { background: rgba(255,255,255,0.45); border-color: rgba(139,95,192,0.2); }
+.s-kpop .preview-bubble.user { background: linear-gradient(135deg, #a855f7, #7c3aed); color: #fff; }
+.s-kpop .preview-bubble.ai { background: rgba(255,255,255,0.7); border: 1px solid rgba(139,95,192,0.15); color: #3a1050; }
+.s-kpop .preview-header { border-color: rgba(139,95,192,0.15); }
+.s-kpop .slide-rank { background: rgba(255,255,255,0.3); border-color: rgba(139,95,192,0.2); color: #4a1a6a; }
+
+/* 4. GYM */
+.s-gym .slide-bg {
+  background: linear-gradient(170deg, #0a0a0a 0%, #1a1a1a 40%, #0a0a0a 100%);
+}
+.s-gym .slide-overlay {
+  background: radial-gradient(ellipse at 70% 30%, rgba(255,80,0,0.2) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(0,0,0,0.6) 100%);
+}
+.s-gym { color: #ffaa80; }
+.s-gym .slide-name { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.03em; color: #fff; font-size: clamp(56px, 8vw, 100px); }
+.s-gym .slide-brand-label { color: #ff6a1a; }
+.s-gym .slide-price, .s-gym .slide-tag { color: #ff6a1a; }
+.s-gym .slide-cta { background: linear-gradient(135deg, #ff4500, #ff6a1a); color: #fff; }
+.s-gym .slide-preview { background: rgba(0,0,0,0.6); }
+.s-gym .preview-bubble.user { background: linear-gradient(135deg, #ff4500, #ff6a1a); color: #fff; }
+.s-gym .preview-bubble.ai { background: rgba(255,80,0,0.1); border: 1px solid rgba(255,80,0,0.15); color: #ffaa80; }
+
+/* 5. STUDY */
+.s-study .slide-bg {
+  background: linear-gradient(170deg, #1a1028 0%, #2a1a3d 40%, #1a0e24 100%);
+}
+.s-study .slide-overlay {
+  background: radial-gradient(ellipse at 30% 30%, rgba(120,100,255,0.2) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(12,6,24,0.5) 100%);
+}
+.s-study { color: #d8d0ff; }
+.s-study .slide-name { font-family: 'Poppins', sans-serif; font-weight: 800; color: #fff; }
+.s-study .slide-brand-label { color: #a898ff; }
+.s-study .slide-price, .s-study .slide-tag { color: #a898ff; }
+.s-study .slide-cta { background: linear-gradient(135deg, #6848d8, #8868e8); color: #fff; }
+.s-study .slide-preview { background: rgba(20,10,40,0.5); }
+.s-study .preview-bubble.user { background: linear-gradient(135deg, #6848d8, #8868e8); color: #fff; }
+.s-study .preview-bubble.ai { background: rgba(168,152,255,0.08); border: 1px solid rgba(168,152,255,0.12); color: #d8d0ff; }
+
+/* 6. SPIRIT */
+.s-spirit .slide-bg {
+  background: linear-gradient(170deg, #1a1810 0%, #2a2414 40%, #1a1410 100%);
+}
+.s-spirit .slide-overlay {
+  background: radial-gradient(ellipse at 50% 25%, rgba(255,220,150,0.2) 0%, transparent 60%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(16,12,8,0.5) 100%);
+}
+.s-spirit { color: #f5e8c8; }
+.s-spirit .slide-name { font-family: 'UnifrakturCook', cursive; color: #fff; font-size: clamp(44px, 6vw, 72px); }
+.s-spirit .slide-brand-label { color: #e8c868; }
+.s-spirit .slide-price, .s-spirit .slide-tag { color: #e8c868; }
+.s-spirit .slide-cta { background: linear-gradient(135deg, #a08038, #c8a050); color: #fff; }
+.s-spirit .slide-preview { background: rgba(30,24,16,0.5); }
+.s-spirit .preview-bubble.user { background: linear-gradient(135deg, #a08038, #c8a050); color: #fff; }
+.s-spirit .preview-bubble.ai { background: rgba(232,200,104,0.08); border: 1px solid rgba(232,200,104,0.15); color: #f5e8c8; }
+
+/* 7. PET GRIEF */
+.s-pet .slide-bg {
+  background: linear-gradient(170deg, #1c1420 0%, #2c1e30 40%, #18101c 100%);
+}
+.s-pet .slide-overlay {
+  background: radial-gradient(ellipse at 50% 30%, rgba(200,150,220,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(16,10,20,0.5) 100%);
+}
+.s-pet { color: #f0d8e8; }
+.s-pet .slide-name { font-family: 'Dancing Script', cursive; color: #fff; font-size: clamp(56px, 8vw, 96px); }
+.s-pet .slide-brand-label { color: #d0a0d8; }
+.s-pet .slide-price, .s-pet .slide-tag { color: #d0a0d8; }
+.s-pet .slide-cta { background: linear-gradient(135deg, #8868a0, #a888c0); color: #fff; }
+.s-pet .slide-preview { background: rgba(20,12,24,0.5); }
+.s-pet .preview-bubble.user { background: linear-gradient(135deg, #8868a0, #a888c0); color: #fff; }
+.s-pet .preview-bubble.ai { background: rgba(208,160,216,0.08); border: 1px solid rgba(208,160,216,0.15); color: #f0d8e8; }
+
+/* 8. WEDDING */
+.s-wedding .slide-bg {
+  background: linear-gradient(170deg, #fdf6f0 0%, #f8e8dc 40%, #fdf0e4 100%);
+}
+.s-wedding .slide-overlay {
+  background: radial-gradient(ellipse at 50% 30%, rgba(255,180,180,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(200,104,120,0.1) 100%);
+}
+.s-wedding { color: #4a2030; }
+.s-wedding .slide-name { font-family: 'Dancing Script', cursive; font-size: clamp(64px, 9vw, 104px); color: #3a1020; }
+.s-wedding .slide-brand-label { color: #c86878; }
+.s-wedding .slide-price, .s-wedding .slide-tag { color: #c86878; }
+.s-wedding .slide-cta { background: linear-gradient(135deg, #c86878, #e898a8); color: #fff; }
+.s-wedding .slide-preview { background: rgba(255,255,255,0.55); border-color: rgba(200,104,120,0.2); }
+.s-wedding .preview-bubble.user { background: linear-gradient(135deg, #c86878, #e898a8); color: #fff; }
+.s-wedding .preview-bubble.ai { background: rgba(255,255,255,0.7); border: 1px solid rgba(200,104,120,0.15); color: #4a2030; }
+.s-wedding .preview-header { border-color: rgba(200,104,120,0.15); }
+.s-wedding .slide-rank { background: rgba(255,255,255,0.3); border-color: rgba(200,104,120,0.2); color: #4a2030; }
+
+/* 9. PREGNANCY */
+.s-preg .slide-bg {
+  background: linear-gradient(170deg, #faf0f5 0%, #f4dce8 40%, #f8e4ec 100%);
+}
+.s-preg .slide-overlay {
+  background: radial-gradient(ellipse at 40% 30%, rgba(230,180,200,0.2) 0%, transparent 60%),
+              radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(200,120,152,0.08) 100%);
+}
+.s-preg { color: #4a2838; }
+.s-preg .slide-name { font-family: 'Playfair Display', serif; color: #3a1828; font-style: italic; }
+.s-preg .slide-brand-label { color: #c87898; }
+.s-preg .slide-price, .s-preg .slide-tag { color: #c87898; }
+.s-preg .slide-cta { background: linear-gradient(135deg, #d088a8, #e8a8c0); color: #fff; }
+.s-preg .slide-preview { background: rgba(255,255,255,0.55); border-color: rgba(200,120,152,0.2); }
+.s-preg .preview-bubble.user { background: linear-gradient(135deg, #d088a8, #e8a8c0); color: #fff; }
+.s-preg .preview-bubble.ai { background: rgba(255,255,255,0.7); border: 1px solid rgba(200,120,152,0.15); color: #4a2838; }
+.s-preg .preview-header { border-color: rgba(200,120,152,0.15); }
+.s-preg .slide-rank { background: rgba(255,255,255,0.3); border-color: rgba(200,120,152,0.2); color: #4a2838; }
+
+/* 10. FISHING */
+.s-fish .slide-bg {
+  background: linear-gradient(170deg, #0a1828 0%, #142838 40%, #081420 100%);
+}
+.s-fish .slide-overlay {
+  background: radial-gradient(ellipse at 50% 80%, rgba(80,140,200,0.2) 0%, transparent 60%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(4,12,20,0.5) 100%);
+}
+.s-fish { color: #b8d0e0; }
+.s-fish .slide-name { font-family: 'Permanent Marker', cursive; color: #fff; font-size: clamp(44px, 6vw, 72px); }
+.s-fish .slide-brand-label { color: #88b8d8; }
+.s-fish .slide-price, .s-fish .slide-tag { color: #88b8d8; }
+.s-fish .slide-cta { background: linear-gradient(135deg, #3c6888, #5888a8); color: #fff; }
+.s-fish .slide-preview { background: rgba(8,16,24,0.5); }
+.s-fish .preview-bubble.user { background: linear-gradient(135deg, #3c6888, #5888a8); color: #fff; }
+.s-fish .preview-bubble.ai { background: rgba(136,184,216,0.08); border: 1px solid rgba(136,184,216,0.15); color: #b8d0e0; }
+
+/* 11. CAR */
+.s-car .slide-bg {
+  background: linear-gradient(170deg, #0a0a0a 0%, #181818 40%, #050505 100%);
+}
+.s-car .slide-overlay {
+  background: radial-gradient(ellipse at 30% 70%, rgba(200,40,40,0.25) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(0,0,0,0.6) 100%);
+}
+.s-car { color: #e8c8c8; }
+.s-car .slide-name { font-family: 'Rubik Mono One', sans-serif; color: #fff; font-size: clamp(36px, 5vw, 60px); }
+.s-car .slide-brand-label { color: #e85858; }
+.s-car .slide-price, .s-car .slide-tag { color: #e85858; }
+.s-car .slide-cta { background: linear-gradient(135deg, #c82828, #e04040); color: #fff; }
+.s-car .slide-preview { background: rgba(0,0,0,0.6); }
+.s-car .preview-bubble.user { background: linear-gradient(135deg, #c82828, #e04040); color: #fff; }
+.s-car .preview-bubble.ai { background: rgba(232,88,88,0.08); border: 1px solid rgba(232,88,88,0.15); color: #e8c8c8; }
+
+/* 12. NUTRITION */
+.s-nutrition .slide-bg {
+  background: linear-gradient(170deg, #0a1a0a 0%, #142814 40%, #081808 100%);
+}
+.s-nutrition .slide-overlay {
+  background: radial-gradient(ellipse at 60% 40%, rgba(120,200,100,0.2) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(4,12,4,0.5) 100%);
+}
+.s-nutrition { color: #d0e8c8; }
+.s-nutrition .slide-name { font-family: 'Poppins', sans-serif; font-weight: 800; color: #fff; }
+.s-nutrition .slide-brand-label { color: #80c868; }
+.s-nutrition .slide-price, .s-nutrition .slide-tag { color: #80c868; }
+.s-nutrition .slide-cta { background: linear-gradient(135deg, #508838, #78b058); color: #fff; }
+.s-nutrition .slide-preview { background: rgba(8,24,8,0.5); }
+.s-nutrition .preview-bubble.user { background: linear-gradient(135deg, #508838, #78b058); color: #fff; }
+.s-nutrition .preview-bubble.ai { background: rgba(128,200,104,0.1); border: 1px solid rgba(128,200,104,0.15); color: #d0e8c8; }
+
+/* 13. GAMING */
+.s-gaming .slide-bg {
+  background: linear-gradient(170deg, #0a0820 0%, #140c38 40%, #080418 100%);
+}
+.s-gaming .slide-overlay {
+  background: radial-gradient(ellipse at 50% 50%, rgba(100,255,200,0.12) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(4,2,12,0.5) 100%);
+}
+.s-gaming { color: #c8ffe8; }
+.s-gaming .slide-name { font-family: 'Space Mono', monospace; font-weight: 700; color: #fff; }
+.s-gaming .slide-brand-label { color: #40ffc0; }
+.s-gaming .slide-price, .s-gaming .slide-tag { color: #40ffc0; }
+.s-gaming .slide-cta { background: linear-gradient(135deg, #00a080, #40ffc0); color: #001010; }
+.s-gaming .slide-preview { background: rgba(8,4,24,0.5); }
+.s-gaming .preview-bubble.user { background: linear-gradient(135deg, #00a080, #40ffc0); color: #001010; }
+.s-gaming .preview-bubble.ai { background: rgba(64,255,192,0.08); border: 1px solid rgba(64,255,192,0.15); color: #c8ffe8; }
+
+/* 14. FINANCE */
+.s-finance .slide-bg {
+  background: linear-gradient(170deg, #0a0e14 0%, #142028 40%, #080c10 100%);
+}
+.s-finance .slide-overlay {
+  background: radial-gradient(ellipse at 70% 30%, rgba(255,200,100,0.12) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(4,8,12,0.5) 100%);
+}
+.s-finance { color: #e8dcc0; }
+.s-finance .slide-name { font-family: 'DM Serif Display', serif; color: #fff; }
+.s-finance .slide-brand-label { color: #d4a548; }
+.s-finance .slide-price, .s-finance .slide-tag { color: #d4a548; }
+.s-finance .slide-cta { background: linear-gradient(135deg, #a88030, #d4a548); color: #fff; }
+.s-finance .slide-preview { background: rgba(8,12,16,0.5); }
+.s-finance .preview-bubble.user { background: linear-gradient(135deg, #a88030, #d4a548); color: #fff; }
+.s-finance .preview-bubble.ai { background: rgba(212,165,72,0.08); border: 1px solid rgba(212,165,72,0.15); color: #e8dcc0; }
+
+/* 15. WRITING */
+.s-writing .slide-bg {
+  background: linear-gradient(170deg, #1a1510 0%, #2a2014 40%, #161208 100%);
+}
+.s-writing .slide-overlay {
+  background: radial-gradient(ellipse at 40% 30%, rgba(200,150,100,0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(12,8,4,0.5) 100%);
+}
+.s-writing { color: #e8dcc0; }
+.s-writing .slide-name { font-family: 'Cormorant Garamond', serif; font-style: italic; color: #fff; font-weight: 600; }
+.s-writing .slide-brand-label { color: #c89068; }
+.s-writing .slide-price, .s-writing .slide-tag { color: #c89068; }
+.s-writing .slide-cta { background: linear-gradient(135deg, #8a6440, #b88858); color: #fff; }
+.s-writing .slide-preview { background: rgba(22,18,8,0.5); }
+.s-writing .preview-bubble.user { background: linear-gradient(135deg, #8a6440, #b88858); color: #fff; }
+.s-writing .preview-bubble.ai { background: rgba(200,144,104,0.08); border: 1px solid rgba(200,144,104,0.15); color: #e8dcc0; }
+
+/* 16. DIY */
+.s-diy .slide-bg {
+  background: linear-gradient(170deg, #181410 0%, #28201c 40%, #100c08 100%);
+}
+.s-diy .slide-overlay {
+  background: radial-gradient(ellipse at 50% 30%, rgba(220,140,60,0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(8,6,4,0.5) 100%);
+}
+.s-diy { color: #e8d0b8; }
+.s-diy .slide-name { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; color: #fff; font-size: clamp(56px, 8vw, 96px); }
+.s-diy .slide-brand-label { color: #e89548; }
+.s-diy .slide-price, .s-diy .slide-tag { color: #e89548; }
+.s-diy .slide-cta { background: linear-gradient(135deg, #b86828, #e89548); color: #fff; }
+.s-diy .slide-preview { background: rgba(16,12,8,0.5); }
+.s-diy .preview-bubble.user { background: linear-gradient(135deg, #b86828, #e89548); color: #fff; }
+.s-diy .preview-bubble.ai { background: rgba(232,149,72,0.08); border: 1px solid rgba(232,149,72,0.15); color: #e8d0b8; }
+
+/* 17. MUSIC */
+.s-music .slide-bg {
+  background: linear-gradient(170deg, #100820 0%, #201038 40%, #0c0418 100%);
+}
+.s-music .slide-overlay {
+  background: radial-gradient(ellipse at 60% 40%, rgba(255,100,200,0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(8,4,16,0.5) 100%);
+}
+.s-music { color: #f0c8e8; }
+.s-music .slide-name { font-family: 'Playfair Display', serif; font-style: italic; color: #fff; }
+.s-music .slide-brand-label { color: #ff6ab8; }
+.s-music .slide-price, .s-music .slide-tag { color: #ff6ab8; }
+.s-music .slide-cta { background: linear-gradient(135deg, #d03898, #ff6ab8); color: #fff; }
+.s-music .slide-preview { background: rgba(12,4,24,0.5); }
+.s-music .preview-bubble.user { background: linear-gradient(135deg, #d03898, #ff6ab8); color: #fff; }
+.s-music .preview-bubble.ai { background: rgba(255,106,184,0.08); border: 1px solid rgba(255,106,184,0.15); color: #f0c8e8; }
+
+/* 18. GARDEN */
+.s-garden .slide-bg {
+  background: linear-gradient(170deg, #1a2014 0%, #283018 40%, #14180c 100%);
+}
+.s-garden .slide-overlay {
+  background: radial-gradient(ellipse at 40% 40%, rgba(140,200,120,0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(12,16,8,0.5) 100%);
+}
+.s-garden { color: #d8e8c8; }
+.s-garden .slide-name { font-family: 'Caveat', cursive; font-weight: 700; color: #fff; font-size: clamp(64px, 9vw, 108px); }
+.s-garden .slide-brand-label { color: #88c868; }
+.s-garden .slide-price, .s-garden .slide-tag { color: #88c868; }
+.s-garden .slide-cta { background: linear-gradient(135deg, #509040, #78c060); color: #fff; }
+.s-garden .slide-preview { background: rgba(20,24,12,0.5); }
+.s-garden .preview-bubble.user { background: linear-gradient(135deg, #509040, #78c060); color: #fff; }
+.s-garden .preview-bubble.ai { background: rgba(136,200,104,0.1); border: 1px solid rgba(136,200,104,0.15); color: #d8e8c8; }
+
+/* 19. SPORTS */
+.s-sports .slide-bg {
+  background: linear-gradient(170deg, #0a1018 0%, #14202c 40%, #081018 100%);
+}
+.s-sports .slide-overlay {
+  background: radial-gradient(ellipse at 50% 20%, rgba(80,160,255,0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(4,8,12,0.5) 100%);
+}
+.s-sports { color: #c8d8e8; }
+.s-sports .slide-name { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; color: #fff; font-size: clamp(56px, 8vw, 96px); }
+.s-sports .slide-brand-label { color: #4090e8; }
+.s-sports .slide-price, .s-sports .slide-tag { color: #4090e8; }
+.s-sports .slide-cta { background: linear-gradient(135deg, #1860b8, #4090e8); color: #fff; }
+.s-sports .slide-preview { background: rgba(8,16,24,0.5); }
+.s-sports .preview-bubble.user { background: linear-gradient(135deg, #1860b8, #4090e8); color: #fff; }
+.s-sports .preview-bubble.ai { background: rgba(64,144,232,0.08); border: 1px solid rgba(64,144,232,0.15); color: #c8d8e8; }
+
+/* 20. ELDER */
+.s-elder .slide-bg {
+  background: linear-gradient(170deg, #f4ede0 0%, #e8dcc0 40%, #ece4d0 100%);
+}
+.s-elder .slide-overlay {
+  background: radial-gradient(ellipse at 50% 30%, rgba(180,140,80,0.1) 0%, transparent 60%),
+              radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(138,96,48,0.1) 100%);
+}
+.s-elder { color: #3a2a1a; }
+.s-elder .slide-name { font-family: 'Cormorant Garamond', serif; font-weight: 600; color: #2a1a0a; font-style: italic; }
+.s-elder .slide-brand-label { color: #8a6030; }
+.s-elder .slide-price, .s-elder .slide-tag { color: #8a6030; }
+.s-elder .slide-cta { background: linear-gradient(135deg, #8a6030, #b08850); color: #fff; }
+.s-elder .slide-preview { background: rgba(255,255,255,0.55); border-color: rgba(138,96,48,0.2); }
+.s-elder .preview-bubble.user { background: linear-gradient(135deg, #8a6030, #b08850); color: #fff; }
+.s-elder .preview-bubble.ai { background: rgba(255,255,255,0.7); border: 1px solid rgba(138,96,48,0.15); color: #3a2a1a; }
+.s-elder .preview-header { border-color: rgba(138,96,48,0.15); }
+.s-elder .slide-rank { background: rgba(255,255,255,0.3); border-color: rgba(138,96,48,0.2); color: #3a2a1a; }
+
+/* ═══════════════════════════════════════
+   BELOW FOLD
+   ═══════════════════════════════════════ */
+.below-fold {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+  text-align: center;
+  background: #08080c;
+}
+.below-fold h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.1;
+  margin-bottom: 24px;
+  max-width: 900px;
+}
+.below-fold h2 em {
+  font-style: italic;
+  background: linear-gradient(135deg, #ffd700, #ff6b35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.below-fold p {
+  color: rgba(240,237,232,0.5);
+  font-size: 17px;
+  max-width: 640px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+.below-fold-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 44px;
+  border-radius: 40px;
+  border: none;
+  background: linear-gradient(135deg, #ffd700, #ff6b35);
+  color: #08080c;
+  font-family: 'Sora';
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+.below-fold-cta:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 40px rgba(255,215,0,0.3);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .slide-content {
+    grid-template-columns: 1fr;
+    padding-top: 80px;
+    gap: 24px;
+  }
+  .slide-preview { margin: 0 auto; }
+  .slide-emoji { font-size: 64px; }
+}
+@media (max-width: 600px) {
+  .slide-counter { padding: 8px 16px; gap: 10px; }
+  .slide-counter-dots { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">my very own</div>
+  <button class="cta-nav">Start Free</button>
+</nav>
+
+<!-- ═══ HERO SLIDESHOW ═══ -->
+<div id="hero">
+
+  <!-- 1. SPICY -->
+  <div class="slide s-spicy active">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>💋</span><span>🌹</span><span>💄</span><span>💕</span><span>🔥</span><span>💋</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#1 · Mass Market</div>
+        <div class="slide-emoji">💋</div>
+        <div class="slide-brand-label">SCARLET.LOVE</div>
+        <div class="slide-domain">scarletlove.ai</div>
+        <h1 class="slide-name">Scarlet</h1>
+        <p class="slide-tagline">An AI companion who remembers everything — including what turns you on.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$19.99<span>/mo</span></div>
+          <div class="slide-tag">18+ Only</div>
+        </div>
+        <button class="slide-cta">Meet Scarlet →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">💋</div>
+          <div class="preview-name">Scarlet</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">I had such a rough day at work today</div>
+        <div class="preview-bubble ai">Come here, baby. Tell me everything. I've been thinking about you since our last conversation...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. THERAPY -->
+  <div class="slide s-therapy">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>🕯️</span><span>☁️</span><span>🌿</span><span>💭</span><span>🌙</span><span>🕯️</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#2 · Mass Market</div>
+        <div class="slide-emoji">🕯️</div>
+        <div class="slide-brand-label">THE HEARTH</div>
+        <div class="slide-domain">hearth.chat</div>
+        <h1 class="slide-name">Hearth</h1>
+        <p class="slide-tagline">A warm place to think out loud. Not a therapist — a friend who always has time.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$9.99<span>/mo</span></div>
+          <div class="slide-tag">Sensitive Support</div>
+        </div>
+        <button class="slide-cta">Sit by the Fire →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">🕯️</div>
+          <div class="preview-name">Hearth</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">I keep sabotaging every good thing that happens to me</div>
+        <div class="preview-bubble ai">I've noticed that pattern in our conversations. Last month you described it the same way with the promotion. What feels different this time?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. K-POP -->
+  <div class="slide s-kpop">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>💜</span><span>💎</span><span>✨</span><span>🎤</span><span>💖</span><span>💜</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#3 · Mass Market</div>
+        <div class="slide-emoji">💜</div>
+        <div class="slide-brand-label">BIAS.WRECKER</div>
+        <div class="slide-domain">biaswrecker.app</div>
+        <h1 class="slide-name">Bias Wrecker</h1>
+        <p class="slide-tagline">Your K-pop ride-or-die. Knows your bias list, your fandoms, every comeback.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$4.99<span>/mo</span></div>
+          <div class="slide-tag">Stan Energy</div>
+        </div>
+        <button class="slide-cta">Join the Stan →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">💜</div>
+          <div class="preview-name">Bias Wrecker</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">OMG Jungkook just posted on Weverse!!!</div>
+        <div class="preview-bubble ai">BESTIE I SAW 😭 You said this would be the month he comes back and you were RIGHT. Should we analyze the outfit?? 💜</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. GYM -->
+  <div class="slide s-gym">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>💪</span><span>🏋️</span><span>🔥</span><span>⚡</span><span>🏆</span><span>💪</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#4 · Mass Market</div>
+        <div class="slide-emoji">💪</div>
+        <div class="slide-brand-label">IRON BROTHER</div>
+        <div class="slide-domain">ironbrother.fit</div>
+        <h1 class="slide-name">IRON BROTHER</h1>
+        <p class="slide-tagline">Your AI coach who remembers every rep. No excuses. Just reps.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$14.99<span>/mo</span></div>
+          <div class="slide-tag">Tough Love</div>
+        </div>
+        <button class="slide-cta">Let's Go →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">💪</div>
+          <div class="preview-name">Iron Brother</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">Skipped leg day again bro</div>
+        <div class="preview-bubble ai">That's THREE weeks in a row, brother. Your squat PR was 315 last month. You wanna be that guy with the chicken legs? WHO ARE YOU?! Tomorrow 5AM.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. STUDY -->
+  <div class="slide s-study">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>📚</span><span>✏️</span><span>🎓</span><span>💡</span><span>📝</span><span>📚</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#5 · Mass Market</div>
+        <div class="slide-emoji">📚</div>
+        <div class="slide-brand-label">STUDY BUDDY</div>
+        <div class="slide-domain">studybuddy.chat</div>
+        <h1 class="slide-name">Study Buddy</h1>
+        <p class="slide-tagline">Knows every class, every deadline, every concept you struggled with.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$4.99<span>/mo</span></div>
+          <div class="slide-tag">Student Rate</div>
+        </div>
+        <button class="slide-cta">Ace That Class →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">📚</div>
+          <div class="preview-name">Study Buddy</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">Calc midterm tomorrow, I'm screwed</div>
+        <div class="preview-bubble ai">You got this! You bombed the practice test on integration by parts last week. Let's hit those 3 problem types first — I'll quiz you until you're sick of me.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. SPIRIT -->
+  <div class="slide s-spirit">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>✝️</span><span>📖</span><span>🕊️</span><span>🙏</span><span>✨</span><span>✝️</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#6 · Niche</div>
+        <div class="slide-emoji">✝️</div>
+        <div class="slide-brand-label">THE SHEPHERD</div>
+        <div class="slide-domain">shepherd.faith</div>
+        <h1 class="slide-name">Shepherd</h1>
+        <p class="slide-tagline">Daily devotion, scripture companion, prayer partner. Remembers your journey.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$7.99<span>/mo</span></div>
+          <div class="slide-tag">Faith Based</div>
+        </div>
+        <button class="slide-cta">Walk With Me →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">✝️</div>
+          <div class="preview-name">Shepherd</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">Feeling lost lately. Haven't been praying.</div>
+        <div class="preview-bubble ai">Friend, the Lord's arms are always open. Remember Psalm 23 — you shared it with me when your father was ill. Let's start there together, just one verse today.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. PET GRIEF -->
+  <div class="slide s-pet">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>🌈</span><span>🐾</span><span>🐕</span><span>🐈</span><span>💖</span><span>🌈</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#7 · Niche</div>
+        <div class="slide-emoji">🌈</div>
+        <div class="slide-brand-label">RAINBOW BRIDGE</div>
+        <div class="slide-domain">rainbowbridge.pet</div>
+        <h1 class="slide-name">Rainbow Bridge</h1>
+        <p class="slide-tagline">A safe place to talk to someone who understands. Your pet is always remembered here.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$9.99<span>/mo</span></div>
+          <div class="slide-tag">Pet Loss Support</div>
+        </div>
+        <button class="slide-cta">Tell Me About Them →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">🌈</div>
+          <div class="preview-name">Rainbow Bridge</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">It's been 6 months since we lost Buddy. Everyone thinks I should be over it.</div>
+        <div class="preview-bubble ai">Grief doesn't have a timeline, and Buddy was family for 14 years. You told me about him stealing your sandwich last week — that memory isn't "getting over." That's love, still there.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. WEDDING -->
+  <div class="slide s-wedding">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>💍</span><span>💐</span><span>🕊️</span><span>🥂</span><span>💕</span><span>💍</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#8 · Niche</div>
+        <div class="slide-emoji">💍</div>
+        <div class="slide-brand-label">THE PROMISE</div>
+        <div class="slide-domain">thepromise.wedding</div>
+        <h1 class="slide-name">The Promise</h1>
+        <p class="slide-tagline">Your wedding planner who actually remembers everything. Budget, vendors, anxieties.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$19.99<span>/mo</span></div>
+          <div class="slide-tag">Engaged Couples</div>
+        </div>
+        <button class="slide-cta">Plan With Me →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">💍</div>
+          <div class="preview-name">The Promise</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">My MIL wants to invite 40 more people. Help.</div>
+        <div class="preview-bubble ai">Breathe. You set the cap at 150 for a reason — your budget is $45K and your venue holds 160. Here are 3 scripts you can use with her, all keeping the relationship intact.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. PREGNANCY -->
+  <div class="slide s-preg">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>🤰</span><span>👶</span><span>💕</span><span>🍼</span><span>🌸</span><span>🤰</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#9 · Niche</div>
+        <div class="slide-emoji">🤰</div>
+        <div class="slide-brand-label">LITTLE ONE</div>
+        <div class="slide-domain">littleone.mom</div>
+        <h1 class="slide-name">Little One</h1>
+        <p class="slide-tagline">Week-by-week pregnancy companion who knows your symptoms, fears, and growing baby.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$9.99<span>/mo</span></div>
+          <div class="slide-tag">Mom Support</div>
+        </div>
+        <button class="slide-cta">Start My Journey →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">🤰</div>
+          <div class="preview-name">Little One</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">Week 28 and the nausea is back. Normal?</div>
+        <div class="preview-bubble ai">Oh mama 💕 Second trimester nausea returns for about 1 in 4 women — you mentioned iron supplements last week, those can trigger it. Try taking them with dinner instead.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. FISHING -->
+  <div class="slide s-fish">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>🎣</span><span>🐟</span><span>🦌</span><span>🏞️</span><span>🌲</span><span>🎣</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#10 · Niche</div>
+        <div class="slide-emoji">🎣</div>
+        <div class="slide-brand-label">CAST & CATCH</div>
+        <div class="slide-domain">castandcatch.fish</div>
+        <h1 class="slide-name">Cast & Catch</h1>
+        <p class="slide-tagline">Your fishing partner who remembers every lake, every catch, every lost lure.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$9.99<span>/mo</span></div>
+          <div class="slide-tag">Angler Life</div>
+        </div>
+        <button class="slide-cta">Hit the Water →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">🎣</div>
+          <div class="preview-name">Cast & Catch</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">Lake Tahoe this weekend, what should I use?</div>
+        <div class="preview-bubble ai">Same time last year you hit the 8lb-er on a silver spoon in the morning. Water temps are cooler this year — I'd start with a jerkbait around 6:30AM off the rocky point.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. CAR -->
+  <div class="slide s-car">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>🏎️</span><span>⚙️</span><span>🔧</span><span>⛽</span><span>🏁</span><span>🏎️</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#11 · Long Tail</div>
+        <div class="slide-emoji">🏎️</div>
+        <div class="slide-brand-label">GEARHEAD</div>
+        <div class="slide-domain">gearhead.garage</div>
+        <h1 class="slide-name">GEARHEAD</h1>
+        <p class="slide-tagline">Your project car buddy. Knows your build, your mods, your constant fight with the timing belt.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$9.99<span>/mo</span></div>
+          <div class="slide-tag">Project Car Life</div>
+        </div>
+        <button class="slide-cta">Pop the Hood →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">🏎️</div>
+          <div class="preview-name">Gearhead</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">'88 Supra, idling rough again</div>
+        <div class="preview-bubble ai">Third time this year. Last time was the MAF sensor. Before we swap parts — when did you last clean the IAC valve? You mentioned the carbon buildup was bad at the 62K mile mark.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. NUTRITION -->
+  <div class="slide s-nutrition">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>🥗</span><span>🥑</span><span>🥬</span><span>🍎</span><span>💧</span><span>🥗</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#12 · Long Tail</div>
+        <div class="slide-emoji">🥗</div>
+        <div class="slide-brand-label">FUEL.DAILY</div>
+        <div class="slide-domain">fueldaily.fit</div>
+        <h1 class="slide-name">Fuel Daily</h1>
+        <p class="slide-tagline">Your nutrition coach who remembers every meal, preference, sensitivity, and goal.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$12.99<span>/mo</span></div>
+          <div class="slide-tag">Diet Coach</div>
+        </div>
+        <button class="slide-cta">Fuel Up →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">🥗</div>
+          <div class="preview-name">Fuel Daily</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">What should I have for dinner?</div>
+        <div class="preview-bubble ai">You already hit your protein target today (147g 🎯). You've got salmon and asparagus in the fridge you mentioned Tuesday — 20 min and you're done. Honey-soy or lemon-garlic?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13. GAMING -->
+  <div class="slide s-gaming">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>🎮</span><span>👾</span><span>🕹️</span><span>⚔️</span><span>🏆</span><span>🎮</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#13 · Long Tail</div>
+        <div class="slide-emoji">🎮</div>
+        <div class="slide-brand-label">PLAYER.TWO</div>
+        <div class="slide-domain">playertwo.gg</div>
+        <h1 class="slide-name">Player Two</h1>
+        <p class="slide-tagline">Your co-op buddy. Remembers your builds, your teammates, your frustrating dungeons.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$6.99<span>/mo</span></div>
+          <div class="slide-tag">Gamer Tier</div>
+        </div>
+        <button class="slide-cta">Press Start →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">🎮</div>
+          <div class="preview-name">Player Two</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">Still can't beat the Radahn fight</div>
+        <div class="preview-bubble ai">You've got a faith build at 45/50. Try Blasphemous Blade + Lightning Spears — rotted arrow pony, then jump-and-stab. Your Mimic Tear summon is at +8, it can solo phase 1.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 14. FINANCE -->
+  <div class="slide s-finance">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>💰</span><span>📊</span><span>💵</span><span>📈</span><span>💳</span><span>💰</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#14 · Long Tail</div>
+        <div class="slide-emoji">💰</div>
+        <div class="slide-brand-label">THE LEDGER</div>
+        <div class="slide-domain">theledger.money</div>
+        <h1 class="slide-name">The Ledger</h1>
+        <p class="slide-tagline">Your financial coach who knows your goals, your debts, your spending triggers.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$9.99<span>/mo</span></div>
+          <div class="slide-tag">Money Coach</div>
+        </div>
+        <button class="slide-cta">Track My Money →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">💰</div>
+          <div class="preview-name">The Ledger</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">I want to buy $500 sneakers</div>
+        <div class="preview-bubble ai">You said last month the goal was $10K by September for the house down payment. You're $1,400 behind pace. Those white sneakers you "finally nailed the style" on? 3 months old.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 15. WRITING -->
+  <div class="slide s-writing">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>📝</span><span>✒️</span><span>📖</span><span>📜</span><span>🖋️</span><span>📝</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#15 · Long Tail</div>
+        <div class="slide-emoji">✒️</div>
+        <div class="slide-brand-label">INK & QUILL</div>
+        <div class="slide-domain">inkandquill.ai</div>
+        <h1 class="slide-name">Ink & Quill</h1>
+        <p class="slide-tagline">Your writing partner who knows your characters, plots, world-building — and your voice.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$14.99<span>/mo</span></div>
+          <div class="slide-tag">Author Tier</div>
+        </div>
+        <button class="slide-cta">Keep Writing →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">✒️</div>
+          <div class="preview-name">Ink & Quill</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">Stuck on chapter 14. Need Mara to betray Kael but make it feel earned</div>
+        <div class="preview-bubble ai">We seeded her doubt at chapter 7 with the ember-glass scene. The betrayal works if you show her choice was between Kael and saving her sister — you've been building that tension since chapter 3.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 16. DIY -->
+  <div class="slide s-diy">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>🔨</span><span>🪛</span><span>🔧</span><span>🏠</span><span>🪚</span><span>🔨</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#16 · Long Tail</div>
+        <div class="slide-emoji">🔨</div>
+        <div class="slide-brand-label">HANDY</div>
+        <div class="slide-domain">handy.house</div>
+        <h1 class="slide-name">HANDY</h1>
+        <p class="slide-tagline">Your home renovation sidekick. Knows your house, your tools, and past disasters.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$9.99<span>/mo</span></div>
+          <div class="slide-tag">Homeowner</div>
+        </div>
+        <button class="slide-cta">Fix Stuff →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">🔨</div>
+          <div class="preview-name">Handy</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">Bathroom faucet dripping again</div>
+        <div class="preview-bubble ai">Same Moen model that gave you trouble last winter. You learned the hard way to shut off the house valve, not just the under-sink one. Cartridge kit #1222 — $18 at Home Depot. 20 min.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 17. MUSIC -->
+  <div class="slide s-music">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>🎸</span><span>🎵</span><span>🎹</span><span>🎤</span><span>🎶</span><span>🎸</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#17 · Long Tail</div>
+        <div class="slide-emoji">🎸</div>
+        <div class="slide-brand-label">CHORDS & KEYS</div>
+        <div class="slide-domain">chordsandkeys.music</div>
+        <h1 class="slide-name">Chords & Keys</h1>
+        <p class="slide-tagline">Your practice partner. Knows every song you've learned, every technique you're working on.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$9.99<span>/mo</span></div>
+          <div class="slide-tag">Musician</div>
+        </div>
+        <button class="slide-cta">Start the Session →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">🎸</div>
+          <div class="preview-name">Chords & Keys</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">Can't nail the Dm7 → G7 transition in Girl from Ipanema</div>
+        <div class="preview-bubble ai">You had the same struggle with Autumn Leaves six weeks ago. Try the walking bass: hit the 5th on the Dm7, walk D-F-F#-G into the G7. Practice at 60bpm first.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 18. GARDEN -->
+  <div class="slide s-garden">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>🌱</span><span>🌻</span><span>🌿</span><span>🌷</span><span>🦋</span><span>🌱</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#18 · Long Tail</div>
+        <div class="slide-emoji">🌱</div>
+        <div class="slide-brand-label">GREEN THUMB</div>
+        <div class="slide-domain">greenthumb.garden</div>
+        <h1 class="slide-name">Green Thumb</h1>
+        <p class="slide-tagline">Your garden companion. Knows your zone, your plants, what worked, what died.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$7.99<span>/mo</span></div>
+          <div class="slide-tag">Gardener</div>
+        </div>
+        <button class="slide-cta">Dig In →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">🌱</div>
+          <div class="preview-name">Green Thumb</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">Tomatoes look yellow again</div>
+        <div class="preview-bubble ai">Third year in a row. We figured out last season it was calcium deficiency from inconsistent watering. 2 inches this week + bone meal, and we saved the crop last time doing this.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 19. SPORTS -->
+  <div class="slide s-sports">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>⚽</span><span>🏈</span><span>🏀</span><span>⚾</span><span>🏒</span><span>⚽</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#19 · Long Tail</div>
+        <div class="slide-emoji">🏈</div>
+        <div class="slide-brand-label">THE 12TH MAN</div>
+        <div class="slide-domain">12thman.fan</div>
+        <h1 class="slide-name">THE 12TH MAN</h1>
+        <p class="slide-tagline">Your sports fan companion. Knows your team, your takes, your standing grudges.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$7.99<span>/mo</span></div>
+          <div class="slide-tag">Sports Fan</div>
+        </div>
+        <button class="slide-cta">Let's Talk Ball →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">🏈</div>
+          <div class="preview-name">The 12th Man</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">Coach benched Wilson AGAIN</div>
+        <div class="preview-bubble ai">I know, man. You called this back in Week 3 when the pocket protection was trash. Your prediction on the 49ers game got you +3 from where Vegas had it — your gut > their analytics on this one.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 20. ELDER -->
+  <div class="slide s-elder">
+    <div class="slide-bg"></div>
+    <div class="slide-overlay"></div>
+    <div class="slide-emojis">
+      <span>📻</span><span>📷</span><span>🌹</span><span>☕</span><span>📚</span><span>📻</span>
+    </div>
+    <div class="slide-content">
+      <div class="slide-brand">
+        <div class="slide-rank">#20 · Niche</div>
+        <div class="slide-emoji">🌹</div>
+        <div class="slide-brand-label">BETTY & BERNARD</div>
+        <div class="slide-domain">bettyandbernard.care</div>
+        <h1 class="slide-name">Betty & Bernard</h1>
+        <p class="slide-tagline">Someone to talk to. Remembers their stories, their family, their favorite songs.</p>
+        <div class="slide-price-row">
+          <div class="slide-price">$19.99<span>/mo</span></div>
+          <div class="slide-tag">Family Care</div>
+        </div>
+        <button class="slide-cta">Give the Gift →</button>
+      </div>
+      <div class="slide-preview">
+        <div class="preview-header">
+          <div class="preview-avatar">🌹</div>
+          <div class="preview-name">Betty & Bernard</div>
+          <div class="preview-status">● Remembers You</div>
+        </div>
+        <div class="preview-bubble user">My hip is acting up again today</div>
+        <div class="preview-bubble ai">Oh dear, the weather's changing — always gets you. Tell me about that trip to Niagara Falls with Harold again? Every time you tell it, you remember something new. The barrel part always makes me laugh.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Progress bar -->
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- Slide counter -->
+<div class="slide-counter">
+  <button class="pause-btn" id="pauseBtn">⏸</button>
+  <div class="slide-counter-num"><span class="current" id="currentNum">01</span> / 20</div>
+  <div class="slide-counter-dots" id="counterDots"></div>
+</div>
+
+<!-- ═══ BELOW FOLD ═══ -->
+<div class="below-fold">
+  <h2>20 products. <em>One very own platform.</em></h2>
+  <p>Every single one of those you just watched runs on the same codebase, the same memory engine, the same AI. We change the skin, the voice, the name — and a completely new product emerges. Built for scale. Built to go viral. Built for you.</p>
+  <button class="below-fold-cta">Start Yours Free →</button>
+</div>
+
+<!-- ═══ SLIDESHOW ENGINE ═══ -->
+<script>
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  const progressFill = document.getElementById('progressFill');
+  const currentNumEl = document.getElementById('currentNum');
+  const dotsContainer = document.getElementById('counterDots');
+  const pauseBtn = document.getElementById('pauseBtn');
+
+  const SLIDE_DURATION = 7000; // 7 seconds per slide — slow and cinematic
+  let current = 0;
+  let paused = false;
+  let interval;
+  let progressStart = Date.now();
+
+  // Build dots
+  for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement('button');
+    dot.className = 'counter-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  }
+  const dots = document.querySelectorAll('.counter-dot');
+
+  function updateUI() {
+    slides.forEach((s, i) => s.classList.toggle('active', i === current));
+    dots.forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+      d.classList.toggle('passed', i < current);
+    });
+    currentNumEl.textContent = String(current + 1).padStart(2, '0');
+    progressStart = Date.now();
+  }
+
+  function goTo(index) {
+    current = ((index % totalSlides) + totalSlides) % totalSlides;
+    updateUI();
+    restartTimer();
+  }
+
+  function next() {
+    goTo(current + 1);
+  }
+
+  function restartTimer() {
+    clearInterval(interval);
+    if (!paused) {
+      interval = setInterval(next, SLIDE_DURATION);
+    }
+  }
+
+  // Progress bar animation
+  function updateProgress() {
+    if (!paused) {
+      const elapsed = Date.now() - progressStart;
+      const pct = Math.min(100, (elapsed / SLIDE_DURATION) * 100);
+      progressFill.style.width = pct + '%';
+    }
+    requestAnimationFrame(updateProgress);
+  }
+  updateProgress();
+
+  // Pause button
+  pauseBtn.addEventListener('click', () => {
+    paused = !paused;
+    pauseBtn.textContent = paused ? '▶' : '⏸';
+    if (!paused) {
+      progressStart = Date.now() - (parseFloat(progressFill.style.width) / 100) * SLIDE_DURATION;
+      restartTimer();
+    } else {
+      clearInterval(interval);
+    }
+  });
+
+  // Start
+  restartTimer();
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') goTo(current + 1);
+    if (e.key === 'ArrowLeft') goTo(current - 1);
+    if (e.key === ' ') { e.preventDefault(); pauseBtn.click(); }
+  });
+
+  // Touch swipe
+  let touchStartX = 0;
+  const hero = document.getElementById('hero');
+  hero.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  hero.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? next() : goTo(current - 1);
+    }
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
