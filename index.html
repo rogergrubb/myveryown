@@ -632,6 +632,55 @@ nav .cta-nav:hover { transform: scale(1.05); }
 }
 .counter-dot.passed { background: rgba(255,215,0,0.35); }
 .counter-dots { display: flex; gap: 3px; }
+
+/* ═══ Legal footer corner — ToS/Privacy ═══ */
+.legal-footer {
+  position: fixed;
+  bottom: 32px; left: 24px;
+  z-index: 100;
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 12px;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.03em;
+  transition: color 0.3s, border-color 0.3s, background 0.3s;
+}
+.legal-footer:hover {
+  color: rgba(255,255,255,0.85);
+  border-color: rgba(255,215,0,0.25);
+  background: rgba(0,0,0,0.7);
+}
+.legal-footer a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+}
+.legal-footer a:hover {
+  color: #ffd700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.legal-dot { opacity: 0.4; }
+.legal-copy { opacity: 0.7; }
+
+/* Mobile — shrink to just "Terms · Privacy" to save space */
+@media (max-width: 640px) {
+  .legal-footer {
+    bottom: 84px;      /* above counter on mobile */
+    left: 14px;
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+  .legal-footer .legal-copy,
+  .legal-footer .legal-dot:last-of-type {
+    display: none;     /* hide copyright on small screens */
+  }
+}
 .pause-btn {
   width: 26px; height: 26px;
   border-radius: 50%;
@@ -2549,6 +2598,15 @@ body[data-accent="betty"]     { --rail-accent: #b08850; --rail-accent-rgb: 176,1
   <div class="slide-counter-num"><span class="current" id="currentNum">01</span> / 20</div>
   <div class="slide-counter-name" id="currentName">Scarlet</div>
   <div class="counter-dots" id="counterDots"></div>
+</div>
+
+<!-- Legal footer — tiny, unobtrusive, bottom-left corner -->
+<div class="legal-footer" aria-label="Legal">
+  <a href="/terms.html">Terms</a>
+  <span class="legal-dot">·</span>
+  <a href="/privacy.html">Privacy</a>
+  <span class="legal-dot">·</span>
+  <span class="legal-copy">© 2026 Number One Son</span>
 </div>
 
 <!-- ═══ BUDDY RAIL v3 — SOLID GLYPHS ═══ -->
