@@ -1,20 +1,24 @@
 {
+  "cleanUrls": true,
   "rewrites": [
-    { "source": "/terms", "destination": "/terms.html" },
-    { "source": "/privacy", "destination": "/privacy.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/((?!terms|privacy|robots\\.txt|sitemap\\.xml|llms\\.txt|og-image|src|themes|gpt-screens|hero-slideshow|homepage|showcase|slideshow-brand|.*\\.html).*)",
+      "destination": "/index.html"
+    }
   ],
   "headers": [
     {
       "source": "/terms",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "index, follow" }
+        { "key": "X-Robots-Tag", "value": "index, follow" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
       ]
     },
     {
       "source": "/privacy",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "index, follow" }
+        { "key": "X-Robots-Tag", "value": "index, follow" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
       ]
     }
   ]
